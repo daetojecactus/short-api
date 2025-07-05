@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: shortapi-db
+    restart: always
+    env_file:
+      - ./server/.env
+    ports:
+      - '5433:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: shortapi-server
+    depends_on:
+      - db
+    env_file:
+      - ./server/.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./server:/app
+    command: pnpm start:dev
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: shortapi-client
+    env_file:
+      - ./client/.env
+    ports:
+      - '8000:3000'
+    volumes:
+      - ./client:/app
+    command: pnpm dev
+    depends_on:
+      - server
+
+volumes:
+  pgdata:
