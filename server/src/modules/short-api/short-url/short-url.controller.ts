@@ -19,7 +19,6 @@ export class ShortUrlController {
   async createShortUrl(@Body() shortUrlDto: ShortUrlDto) {
     const result = await this.shortUrlService.create(shortUrlDto);
     const baseUrl = this.configService.get<string>('BASE_URL');
-
     return {
       shortUrl: `${baseUrl}/${result.alias}`,
     };

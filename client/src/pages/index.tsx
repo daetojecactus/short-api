@@ -1,6 +1,6 @@
 import React from 'react';
-import { Card, Typography, Space } from 'antd';
-import { useRouter } from 'next/navigation';
+import { Typography, Space } from 'antd';
+import { useRouter } from 'next/router';
 import { ShortLinkCreateDrawer } from '@/components/ShortLink/ShortLinkActions/ShortLinkCreateDrawer';
 import { ShortLinkSearchForm } from '@/components/ShortLink/ShortLinkSearchForm/ShortLinkSearchForm';
 
@@ -12,13 +12,12 @@ export default function IndexPage() {
   };
 
   return (
-    <Card style={{ maxWidth: 600, margin: '40px auto' }}>
-      <Space direction="vertical" style={{ width: '100%' }} size="large">
-        <Typography.Title level={3}>Сервис сокращения ссылок</Typography.Title>
-
+    <>
+      <Space direction="vertical" size="large" style={{ width: '100%', maxWidth: 600, textAlign: 'center' }}>
+        <Typography.Title level={2}>Сервис сокращения ссылок</Typography.Title>
         <ShortLinkSearchForm onSearch={handleSearch} />
         <ShortLinkCreateDrawer />
       </Space>
-    </Card>
+    </>
   );
 }
